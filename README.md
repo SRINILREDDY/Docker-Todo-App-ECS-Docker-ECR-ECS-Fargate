@@ -1,10 +1,8 @@
-# 🚀 Dockerized Todo Application on AWS ECS
+# 🚀 Dockerized Todo Application on Amazon ECS Fargate
 
 ## 📌 Overview
 
-This project demonstrates how to containerize and deploy a Todo web application on **Amazon Elastic Container Service (ECS)** using **Docker** and **Amazon Elastic Container Registry (ECR)**.
-
-The application is packaged as a Docker image, stored in Amazon ECR, and deployed on Amazon ECS using AWS networking and security best practices.
+This project demonstrates how to containerize and deploy a Todo web application on **Amazon ECS Fargate** using **Docker** and **Amazon Elastic Container Registry (ECR)**. The application runs in serverless containers without managing EC2 instances, providing a scalable and fully managed container deployment.
 
 ---
 
@@ -12,14 +10,14 @@ The application is packaged as a Docker image, stored in Amazon ECR, and deploye
 
 ```text
 User
-  │
-  ▼
-Amazon ECS Service
-  │
-  ▼
+   │
+   ▼
+Amazon ECS Service (Fargate)
+   │
+   ▼
 Docker Container
-  │
-  ▼
+   │
+   ▼
 Todo Application
 ```
 
@@ -27,34 +25,34 @@ Todo Application
 
 ## ☁️ AWS Services Used
 
-- Amazon ECS
+- Amazon ECS (Fargate)
 - Amazon ECR
-- Amazon EC2 (if using the EC2 launch type)
 - Amazon VPC
 - Security Groups
 - IAM
+- CloudWatch Logs
 
 ---
 
 ## 🐳 Docker Components
 
-- Docker Engine
+- Docker
 - Dockerfile
 - Docker Image
 - Docker Container
-- Docker Hub (optional)
-- Amazon ECR
+- Amazon Elastic Container Registry (ECR)
 
 ---
 
 ## ✨ Project Highlights
 
 - Containerized a Todo application using Docker.
-- Created a custom Docker image with a Dockerfile.
+- Built a custom Docker image using a Dockerfile.
 - Pushed the Docker image to Amazon Elastic Container Registry (ECR).
-- Deployed the application on Amazon Elastic Container Service (ECS).
+- Deployed the application on Amazon ECS using the Fargate launch type.
 - Configured VPC networking and Security Groups for secure access.
-- Verified the application deployment through the ECS service.
+- Used CloudWatch Logs to monitor the running container.
+- Validated the deployment by accessing the running application.
 
 ---
 
@@ -66,18 +64,25 @@ Todo Application
 - Dockerfile
 - Docker Image
 
+### Container Orchestration
+
+- Amazon ECS
+- AWS Fargate
+- ECS Task Definition
+- ECS Service
+
 ### Container Registry
 
 - Amazon Elastic Container Registry (ECR)
-
-### Container Orchestration
-
-- Amazon Elastic Container Service (ECS)
 
 ### Networking
 
 - Amazon VPC
 - Security Groups
+
+### Monitoring
+
+- Amazon CloudWatch Logs
 
 ### Identity & Access
 
@@ -88,9 +93,9 @@ Todo Application
 ## 🔒 Security
 
 - Stored container images securely in Amazon ECR.
-- Configured IAM permissions for ECS tasks.
-- Used Security Groups to control network access.
-- Deployed the application inside an Amazon VPC.
+- Configured IAM roles for ECS task execution.
+- Restricted network access using Security Groups.
+- Deployed containers within an Amazon VPC.
 
 ---
 
@@ -100,23 +105,23 @@ Todo Application
 - Dockerfile
 - Containerization
 - Amazon ECS
+- AWS Fargate
 - Amazon ECR
 - Amazon VPC
 - IAM
+- CloudWatch Logs
 - Linux
-- AWS Networking
 
 ---
 
 ## 📂 Repository Structure
 
 ```text
-dockerized-todo-application
+dockerized-todo-application/
 │
 ├── Dockerfile
 ├── README.md
 ├── app/
-├── package.json
 └── screenshots/
 ```
 
@@ -124,15 +129,24 @@ dockerized-todo-application
 
 ## 🎯 Outcome
 
-Successfully containerized and deployed a Todo application on Amazon ECS by:
+Successfully containerized and deployed a Todo application on **Amazon ECS Fargate** by:
 
 - Building a Docker image.
 - Pushing the image to Amazon ECR.
-- Deploying the container using Amazon ECS.
+- Deploying the application using Amazon ECS Fargate.
 - Configuring networking and security.
-- Validating the application deployment.
+- Monitoring the application using CloudWatch Logs.
+- Validating end-to-end application deployment.
 
 ---
+
+## 👨‍💻 Author
+
+**Srinil Reddy**
+
+Cloud Engineer | AWS | Docker | ECS | Linux
+
+GitHub: https://github.com/SRINILREDDY
 
 ## 👨‍💻 Author
 
