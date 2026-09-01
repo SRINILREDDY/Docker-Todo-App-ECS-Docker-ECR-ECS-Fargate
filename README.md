@@ -1,157 +1,79 @@
-# 🚀 Dockerized Todo Application on Amazon ECS Fargate
+# Docker Project
 
-## 📌 Overview
+## Overview
+Briefly explain what the project does and why Docker is used.
 
-This project demonstrates how to containerize and deploy a Todo web application on **Amazon ECS Fargate** using **Docker** and **Amazon Elastic Container Registry (ECR)**. The application runs in serverless containers without managing EC2 instances, providing a scalable and fully managed container deployment.
+## Architecture
+Application → Docker → ECR → ECS Fargate
 
----
-
-## 🔄 Application Workflow
-
-```text
-User
-   │
-   ▼
-Amazon ECS Service (Fargate)
-   │
-   ▼
-Docker Container
-   │
-   ▼
-Todo Application
-```
-
----
-
-## ☁️ AWS Services Used
-
-- Amazon ECS (Fargate)
+## Technologies
+- AWS
+- Docker
 - Amazon ECR
-- Amazon VPC
-- Security Groups
-- IAM
-- CloudWatch Logs
-
----
-
-## 🐳 Docker Components
-
-- Docker
-- Dockerfile
-- Docker Image
-- Docker Container
-- Amazon Elastic Container Registry (ECR)
-
----
-
-## ✨ Project Highlights
-
-- Containerized a Todo application using Docker.
-- Built a custom Docker image using a Dockerfile.
-- Pushed the Docker image to Amazon Elastic Container Registry (ECR).
-- Deployed the application on Amazon ECS using the Fargate launch type.
-- Configured VPC networking and Security Groups for secure access.
-- Used CloudWatch Logs to monitor the running container.
-- Validated the deployment by accessing the running application.
-
----
-
-## 🏛️ Infrastructure Components
-
-### Containerization
-
-- Docker
-- Dockerfile
-- Docker Image
-
-### Container Orchestration
-
 - Amazon ECS
-- AWS Fargate
-- ECS Task Definition
-- ECS Service
-
-### Container Registry
-
-- Amazon Elastic Container Registry (ECR)
-
-### Networking
-
-- Amazon VPC
-- Security Groups
-
-### Monitoring
-
-- Amazon CloudWatch Logs
-
-### Identity & Access
-
-- AWS IAM
-
----
-
-## 🔒 Security
-
-- Stored container images securely in Amazon ECR.
-- Configured IAM roles for ECS task execution.
-- Restricted network access using Security Groups.
-- Deployed containers within an Amazon VPC.
-
----
-
-## 🛠️ Skills Demonstrated
-
-- Docker
-- Dockerfile
-- Containerization
-- Amazon ECS
-- AWS Fargate
-- Amazon ECR
-- Amazon VPC
-- IAM
-- CloudWatch Logs
+- Fargate
 - Linux
+- Git/GitHub
 
----
+## Project Architecture
+[Architecture diagram]
 
-## 📂 Repository Structure
+## Docker Implementation
+- Dockerfile
+- Docker image creation
+- Container execution
+- Port mapping
+- Container networking
+- Logs and troubleshooting
 
-```text
-dockerized-todo-application/
-│
-├── Dockerfile
-├── README.md
-├── app/
-└── screenshots/
-```
+## AWS Deployment
+- ECR repository
+- Image push
+- ECS cluster
+- Task definition
+- ECS service
+- Fargate deployment
 
----
+## How to Run Locally
 
-## 🎯 Outcome
+### Clone
+git clone ...
 
-Successfully containerized and deployed a Todo application on **Amazon ECS Fargate** by:
+### Build
+docker build ...
 
-- Building a Docker image.
-- Pushing the image to Amazon ECR.
-- Deploying the application using Amazon ECS Fargate.
-- Configuring networking and security.
-- Monitoring the application using CloudWatch Logs.
-- Validating end-to-end application deployment.
+### Run
+docker run ...
 
----
+### Verify
+...
 
-## 👨‍💻 Author
+## Deployment Workflow
 
-**Srinil Reddy**
+Code
+ ↓
+Git
+ ↓
+Docker Build
+ ↓
+Docker Image
+ ↓
+Amazon ECR
+ ↓
+ECS Fargate
+ ↓
+Application
 
-Cloud Engineer | AWS | Docker | ECS | Linux
+## What I Learned
+- Containerization
+- Docker image lifecycle
+- Container networking
+- ECR
+- ECS/Fargate deployment
+- Troubleshooting
 
-GitHub: https://github.com/SRINILREDDY
-
-## 👨‍💻 Author
-
-**Srinil Reddy**
-
-Cloud Engineer | AWS | Docker | Linux
-
-GitHub: https://github.com/SRINILREDDY
+## Future Improvements
+- GitHub Actions CI/CD
+- Terraform
+- Monitoring
+- Security improvements
