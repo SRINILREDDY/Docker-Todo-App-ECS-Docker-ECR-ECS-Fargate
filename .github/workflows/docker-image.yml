@@ -1,20 +1,20 @@
-name: docker cI
+name: Docker CI
 
 on:
   push:
     branches:
-       - main
+      - main
   pull_request:
     branches:
-       - main
+      - main
 
 jobs:
   docker-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout action
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -23,9 +23,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: ap-south-1
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v6
-        with:
-            context: .
-            push: false
-            tags: todo-app:latest
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: todo-app
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
