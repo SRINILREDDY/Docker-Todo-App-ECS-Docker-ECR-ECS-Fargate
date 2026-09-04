@@ -16,12 +16,16 @@ jobs:
       - name: checkout action
         uses: actions/checkout@v3
 
-      - name: aws credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.aws_access_key_id }}
-          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+          aws-access-key-id: ${{ secrets.AWS_SECRET }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: ap-south-1
 
-      - name: setup docker build
-        run: docker build -t todo-app:latest .
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+            context: .
+            push: false
+            tags: todo-app:latest
