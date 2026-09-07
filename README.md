@@ -6,24 +6,59 @@ This project containerizes a Node.js Todo application with Docker, publishes the
 
 ## Architecture
 
+### Architecture Diagram
+
+```mermaid
+flowchart LR
+    Developer[Developer] --> GitHub[GitHub Repository]
+    GitHub --> Actions[GitHub Actions]
+    Actions --> Build[Docker Build]
+    Build --> ECR[Private Amazon ECR]
+    ECR --> TaskDef[ECS Task Definition]
+    TaskDef --> Service[ECS Service]
+    Service --> Fargate[AWS Fargate Task]
+    Fargate --> App[Todo App :3000]
+    Fargate --> Logs[CloudWatch Logs]
+```
+
+### Deployment Flow
+
 ```text
 Application Code
-      ↓
+      |
+      v
    GitHub
-      ↓
+      |
+      v
 GitHub Actions
-      ↓
- Docker Build
-      ↓
+      |
+      +--> Configure AWS credentials
+      |
+      +--> Login to ECR
+      |
+      +--> Build Docker image
+      |
+      +--> Tag image
+      |
+      +--> Push image
+      |
+      v
 Private Amazon ECR
-      ↓
+      |
+      v
 ECS Task Definition
-      ↓
+      |
+      v
 ECS Service
-      ↓
-Fargate Task
-      ↓
- Todo App :3000
+      |
+      v
+AWS Fargate Task
+      |
+      v
+Todo App :3000
+      |
+      v
+CloudWatch Logs
 ```
 
 **Important:** GitHub Actions is used to **build and push the Docker image to ECR**. ECS Fargate then pulls the image from ECR and runs the container. The current deployment does not use an Application Load Balancer.
