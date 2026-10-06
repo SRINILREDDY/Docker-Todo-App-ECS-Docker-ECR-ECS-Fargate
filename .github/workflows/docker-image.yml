@@ -8,10 +8,23 @@ on:
     branches:
       - main
 
-jobs:
-  docker-build:
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Docker image build
+        run: docker build -t todo-app:${{ github.sha }} .
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,7 +44,9 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: todo-app
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
+          docker tag "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" "$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:latest"
