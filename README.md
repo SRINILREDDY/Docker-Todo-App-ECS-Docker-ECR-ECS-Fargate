@@ -63,6 +63,13 @@ CloudWatch Logs
 
 **Important:** GitHub Actions is used to **build and push the Docker image to ECR**. ECS Fargate then pulls the image from ECR and runs the container. The current deployment does not use an Application Load Balancer.
 
+## Deployment Evidence
+
+![Docker image build](screenshots/docker-build.png)
+![Image pushed to ECR](screenshots/ecr-image-push.png)
+![ECS service](screenshots/ecs-service.png)
+![Todo application](screenshots/live-todo-app.png)
+
 ## Technologies
 
 - AWS
@@ -118,16 +125,10 @@ Workflow: `.github/workflows/docker-image.yml`
 
 The workflow runs on pushes and pull requests targeting `main`.
 
-It performs these steps:
+- **Pull requests:** build the Docker image locally on the runner. No AWS credentials are used and no image is published.
+- **Pushes to main:** build validation runs first. A separate publishing job then authenticates to ECR and pushes both the commit SHA tag and `latest`.
 
-1. Checkout the repository
-2. Configure AWS credentials
-3. Authenticate to Amazon ECR
-4. Build the Docker image
-5. Tag the image for ECR
-6. Push the image to the private ECR repository
-
-AWS authentication uses encrypted GitHub repository secrets. The workflow does **not** deploy to ECS.
+AWS authentication in the publishing job uses encrypted GitHub repository secrets. The workflow does **not** deploy to ECS.
 
 ## Amazon ECR
 
@@ -137,7 +138,7 @@ Private repository:
 todo-app
 ```
 
-The workflow publishes the image using the `latest` tag.
+Main-branch builds publish both a commit SHA tag and `latest`. Use the commit SHA tag in the ECS task definition to identify the exact image deployed.
 
 ## ECS Fargate Deployment
 
